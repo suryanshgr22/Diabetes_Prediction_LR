@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ML Model Prediction</title>
+    <style>
+        div{
+            padding: 6px;
+        }
+        input[type=text]{
+            height: 20px;
+        }
+        input[type=text]:focus {
+            border: 3px solid #fb8332;
+        }
+        input[type='radio'] {
+            accent-color: #fb8332;
+        }
+        
+        *:focus {
+            outline: none;
+        }
+        fieldset {
+            border:2px solid #fff;
+        }
+        /* CSS */
+        .button-5 {
+        align-items: center;
+        background-clip: padding-box;
+        background-color: #fa6400;
+        border: 1px solid transparent;
+        border-radius: .25rem;
+        box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+        box-sizing: border-box;
+        color: #fff;
+        cursor: pointer;
+        display: inline-flex;
+        font-family: system-ui,-apple-system,system-ui,"Helvetica Neue",Helvetica,Arial,sans-serif;
+        font-size: 16px;
+        font-weight: 600;
+        justify-content: center;
+        line-height: 1.25;
+        margin: 0;
+        min-height: 3rem;
+        padding: calc(.875rem - 1px) calc(1.5rem - 1px);
+        position: relative;
+        text-decoration: none;
+        transition: all 250ms;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+        vertical-align: baseline;
+        width: auto;
+        }
+
+        .button-5:hover,
+        .button-5:focus {
+        background-color: #fb8332;
+        box-shadow: rgba(0, 0, 0, 0.1) 0 4px 12px;
+        }
+
+        .button-5:hover {
+        transform: translateY(-1px);
+        }
+
+        .button-5:active {
+        background-color: #c85000;
+        box-shadow: rgba(0, 0, 0, .06) 0 2px 4px;
+        transform: translateY(0);
+        }
+        label{
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        legend{
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+    </style>
+</head>
+<body style="background-color: #fbc49d";>
+    <h1 style="color: #fa6400; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; text-align: center; text-shadow: 1px 1px #fbdcc5;" >Diabetes Prediction Logistic Regression Model </h1>
+    <div style="display: flex; justify-content: space-evenly;">
+    <div id="main" style="display: flex; align-items: center;  background-color: rgba(255, 255, 255, 0.5); padding: 5px;" >
+    <form id="prediction-form" method="post" action="/predict">
+        {% csrf_token %}
+        
+        
+        <div style="margin-top: 15px;" ><input type="text" name="age" placeholder="age" required></div>
+        <div><input type="text" name="hypertension" placeholder="hypertension" required></div>
+        <div><input type="text" name="heart_disease" placeholder="heart_disease" required></div>
+        <div style="display: flex; justify-content: space-evenly;">
+            <div>            <fieldset>
+                <legend>Gender</legend>
+                <label>
+                    <input type="radio" name="gender" value="1" required> Male
+                </label><br>
+                <label>
+                    <input type="radio" name="gender" value="2" required> Female
+                </label><br>
+                <label>
+                    <input type="radio" name="gender" value="3" required> Other
+                </label>
+            </fieldset></div>
+            <div>            <fieldset>
+                <legend>Smoking History</legend>
+                <label>
+                    <input type="radio" name="smoking_history" value="1" required> Never
+                </label><br>
+                <label>
+                    <input type="radio" name="smoking_history" value="2" required> No Info
+                </label><br>
+                <label>
+                    <input type="radio" name="smoking_history" value="3" required> Current
+                </label><br>
+                <label>
+                    <input type="radio" name="smoking_history" value="4" required> Former
+                </label><br>
+                <label>
+                    <input type="radio" name="smoking_history" value="5" required> Ever
+                </label><br>
+                <label>
+                    <input type="radio" name="smoking_history" value="6" required> Not current
+                </label>
+            </fieldset></div>
+
+        </div>
+        <div style="display: flex; justify-content: space-evenly;">
+            <div>
+                <div><input type="text" name="bmi" placeholder="bmi" required></div>
+                <div><input type="text" name="HbA1c_level" placeholder="HbA1c_level" required></div>
+                <div><input type="text" name="blood_glucose_level" placeholder="blood_glucose_level" required></div>
+            </div>
+            <div style="padding-top: 10px; margin-top: 40px;" ><button class="button-5" type="submit">Predict</button></div>
+        </div>
+    </form>
+    </div>
+    <div id="result">
+        <div style="display: flex; align-items: center;  background-color: rgba(255, 255, 255, 0.5); padding: 8px; color: #fa6400; width: 170px;" >
+            <div><h3 style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; padding-right: 20px;">Result : </h3></div>
+            {% if answer == 1 %}
+              <div id="answer" style="background-color: rgb(212, 69, 98); color: white; font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">Yes</div>
+            {% elif answer == 0 %}
+              <div id="answer" style="background-color: rgb(132, 206, 59); color: white; font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif; font-size: larger;">No</div>
+            {% endif %}
+            </div>
+    </div>
+    </div>
+    <script>
+
+    </script>
+</body>
+</html>
